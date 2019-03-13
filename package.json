@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A custom React Hook that provides a sensible alternative to `useRef` for storing instance variables.",
   "main": "dist/instance.js",
   "umd:main": "dist/instance.umd.js",

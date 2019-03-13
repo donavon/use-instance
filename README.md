@@ -1,9 +1,9 @@
 # @use-it/instance 🐘
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 A custom React Hook that provides a sensible alternative to `useRef` for storing instance variables.
 
-[![npm version](https://badge.fury.io/js/%40use-it%2Finstance.svg)](https://badge.fury.io/js/%40use-it%2Finstance) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![npm version](https://badge.fury.io/js/%40use-it%2Finstance.svg)](https://badge.fury.io/js/%40use-it%2Finstance)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## Why?
 
@@ -163,7 +163,7 @@ This is from the official Hooks documentation.
 
 >In the future, React may choose to “forget” some previously memoized values and recalculate them on next render.
 
-Instance variables don't forget. 🐘
+Instance variables never forget. 🐘
 
 ## Live demo
 
@@ -177,15 +177,12 @@ You can view/edit the "you clicked" sample code above on CodeSandbox.
 
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/887639?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Donavon West</b></sub>](http://donavon.com)<br />[🤔](#ideas-donavon "Ideas, Planning, & Feedback") [🚇](#infra-donavon "Infrastructure (Hosting, Build-Tools, etc)") [🚧](#maintenance-donavon "Maintenance") [👀](#review-donavon "Reviewed Pull Requests") [💻](https://github.com/donavon/use-instance/commits?author=donavon "Code") [🎨](#design-donavon "Design") |
-| :---: |
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/887639?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Donavon West</b></sub>](http://donavon.com)<br />[🤔](#ideas-donavon "Ideas, Planning, & Feedback") [🚇](#infra-donavon "Infrastructure (Hosting, Build-Tools, etc)") [🚧](#maintenance-donavon "Maintenance") [👀](#review-donavon "Reviewed Pull Requests") [💻](https://github.com/donavon/use-instance/commits?author=donavon "Code") [🎨](#design-donavon "Design") |
+| :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
