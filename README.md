@@ -1,4 +1,5 @@
 # @use-it/instance 🐘
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 A custom React Hook that provides a sensible alternative to `useRef` for storing instance variables.
 
@@ -176,6 +177,11 @@ You can view/edit the "you clicked" sample code above on CodeSandbox.
 
 ## Contributors
 
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/887639?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Donavon West</b></sub>](http://donavon.com)<br />[🤔](#ideas-donavon "Ideas, Planning, & Feedback") [🚇](#infra-donavon "Infrastructure (Hosting, Build-Tools, etc)") [🚧](#maintenance-donavon "Maintenance") [👀](#review-donavon "Reviewed Pull Requests") [💻](https://github.com/donavon/use-instance/commits?author=donavon "Code") [🎨](#design-donavon "Design") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
