@@ -63,7 +63,7 @@ Use it just like you would to create instance properties and methods in a class 
 
 ## Example
 
-### A replacement for `useRef'
+### A replacement for `useRef`
 
 Here's an example where you might use `useRef`.
 Within the closure of the `useEffect`, if we simply reference
@@ -116,7 +116,7 @@ function Example() {
 }
 ```
 
-### A replacement for `useCallback'/useMemo`
+### A replacement for `useCallback`/`useMemo`
 
 You can also use `useInstance` in place of `useCallback` and `useMemo` for some cases.
 
