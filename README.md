@@ -63,9 +63,64 @@ Use it just like you would to create instance properties and methods in a class 
 
 ## Example
 
+### A replacement for `useRef'
+
+Here's an example where you might use `useRef`.
+Within the closure of the `useEffect`, if we simply reference
+`count` directly, we will see count as it was during the
+creation of the function.
+Instead we must make it "live" throughout many render cycles.
+
+```js
+function Example() {
+  const [count, setCount] = useState(0);
+  const latestCount = useRef(count);
+
+  useEffect(() => {
+    latestCount.current = count;
+    setTimeout(() => {
+      console.log(`You clicked ${latestCount.current} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+And here's the same code using `useInstance`.
+It has a more familiar class component-like syntax. 
+
+```js
+function Example() {
+  const [count, setCount] = useState(0);
+  const that = useInstance();
+
+  useEffect(() => {
+    that.latestCount = count;
+    setTimeout(() => {
+      console.log(`You clicked ${that.latestCount} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+### A replacement for `useCallback'/useMemo`
+
 You can also use `useInstance` in place of `useCallback` and `useMemo` for some cases.
 
-Take, for instance (pardon the pun), this simple up/down counter example.
+Take for instance (pardon the pun), this simple up/down counter example.
 You might use `useCallback` to ensure that the pointers
 to the `increment` and `decrement` function didn't change.
 
@@ -111,9 +166,9 @@ Instance variables don't forget. 🐘
 
 ## Live demo
 
-You can view/edit the sample code above on CodeSandbox.
+You can view/edit the "you clicked" sample code above on CodeSandbox.
 
-[![Edit demo app on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/k38lyx2q9o)
+[![Edit demo app on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/6wqqr4y9oz)
 
 ## License
 
