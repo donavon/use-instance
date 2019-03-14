@@ -30,6 +30,16 @@ describe('useInstance', () => {
     expect(self).toEqual({ foo: 'foo' });
   });
 
+  test('or an optional "lazy" initialization function that returns an object`', () => {
+    let self;
+
+    testHook(() => {
+      self = useInstance(() => ({ foo: 'foo' }));
+    });
+
+    expect(self).toEqual({ foo: 'foo' });
+  });
+
   test('will return the same instance object for every render`', () => {
     let self;
 
@@ -39,6 +49,21 @@ describe('useInstance', () => {
 
     const symbol = Symbol('');
     self.symbol = symbol;
+
+    rerender();
+
+    expect(self).toEqual({ symbol });
+  });
+
+  test('will return the same instance object for every render when using a function`', () => {
+    let self;
+    const symbol = Symbol('');
+
+    const { rerender } = testHook(() => {
+      self = useInstance(() => ({
+        symbol,
+      }));
+    });
 
     rerender();
 

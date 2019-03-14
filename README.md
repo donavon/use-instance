@@ -25,6 +25,9 @@ so you're already familiar with how it works.
 So… Use `useRef` if you're dealing with actual DOM elements—use
 `useInstance` for instance properties and methods.
 
+Some may say _"Six of this, hald dozen of another,"_ and they could be right.
+But if you're in the "half-dozen" camp, `useInstance` might well be for you!
+
 ## Installation
 
 ```bash
@@ -55,64 +58,61 @@ Here are the parameters that you can use. (\* = optional)
 
 | Parameter   | Description                                                                                                      |
 | :---------- | :--------------------------------------------------------------------------------------------------------------- |
-| `initialInstance` | Is an object that represents the initial instance value. Defaults to an empty object literal. |
+| `initialInstance` | Is an object or a function that returns an object that represents the initial instance value. Defaults to an empty object literal. |
 
 ### Return
 
 The return value is an object that WILL NOT change on subsequent calls to your function component.
 Use it just like you would to create instance properties and methods in a class component.
 
-## Example
+
+## Examples
 
 ### A replacement for `useRef`
 
 Here's an example where you might use `useRef`.
 Within the closure of the `useEffect`, if we simply reference
-`count` directly, we will see count as it was during the
+`callback` directly, we will see `callback` as it was during the
 creation of the function.
 Instead we must make it "live" throughout many render cycles.
 
 ```js
-function Example() {
-  const [count, setCount] = useState(0);
-  const latestCount = useRef(count);
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+  savedCallback.current = callback;
 
   useEffect(() => {
-    latestCount.current = count;
-    setTimeout(() => {
-      console.log(`You clicked ${latestCount.current} times`);
-    }, 3000);
-  });
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  );
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
 ```
 
 And here's the same code using `useInstance`.
-It has a more familiar class component-like syntax. 
+It has a more familiar class component-like syntax.
+Again, think of `self` as `this`.
 
 ```js
-function Example() {
-  const [count, setCount] = useState(0);
-  const that = useInstance();
+function useInterval(callback, delay) {
+  const self = useInstance();
+  self.savedCallback = callback;
 
-  useEffect(() => {
-    that.latestCount = count;
-    setTimeout(() => {
-      console.log(`You clicked ${that.latestCount} times`);
-    }, 3000);
-  });
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
+  useEffect(
+    () => {
+      function tick() {
+        self.savedCallback();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    },
+    [delay]
   );
 }
 ```
@@ -164,6 +164,60 @@ This is from the official Hooks documentation.
 >In the future, React may choose to “forget” some previously memoized values and recalculate them on next render.
 
 Instance variables never forget. 🐘
+
+### Lazy initialization
+
+If computing the `initialInstance` is costly, you may pass a function that returns an `initialInstance`.
+`useInstance` will only call the function on mount.
+
+Not that creating two functions is expensive,
+but we could re-write the example above using a lazy initializer, like this.
+
+```js
+// this is only called once, on mount, per component instance
+const getInitialInstance = setCount => ({
+  increment: () => setCount(c => c + 1),
+  decrement: () => setCount(c => c - 1),
+});
+
+const useCounter = initialCount => {
+  const [count, setCount] = useState(initialCount);
+  const self = useInstance(getInitialInstance(setCount));
+
+  return {
+    count,
+    ...self,
+  };
+};
+```
+
+Notice that we moved `getInitialInstance` into a static fucntion _outside_ of `useCounter`.
+This helps to reduce the complexity of `useCounter`.
+An added side effect is that `getInitialInstance` is now highly testable.
+
+
+You might even take this one step further and refactor your methods
+into it's own cusom Hook. Isn't coding fun? 😊
+
+```js
+const getInitialInstance = setCount => ({
+  increment: () => setCount(c => c + 1),
+  decrement: () => setCount(c => c - 1),
+});
+
+const useCounterMethods = setCount => 
+  useInstance(getInitialInstance(setCount));
+
+const useCounter = initialCount => {
+  const [count, setCount] = useState(initialCount);
+  const methods = useCounterMethods(setCount);
+
+  return {
+    count,
+    ...methods,
+  };
+};
+```
 
 ## Live demo
 
