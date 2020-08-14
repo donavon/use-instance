@@ -40,7 +40,7 @@ useEffect(() => {
 });
 ```
 
-The solution that they are suggesting (below) is to use an instance variable, which is exactly what `useInstance` is doing. Had React implimented `useInstance` this "potential issue" would never have be be raised.
+The solution that they are suggesting (below) is to use an instance variable, which is exactly what `useInstance` is doing. Had React implimented `useInstance` this "potential issue" would never have been raised.
 
 ```js
 useEffect(() => {
