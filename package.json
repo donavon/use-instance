@@ -2,9 +2,9 @@
   "name": "@use-it/instance",
   "publishConfig": {
     "access": "public",
-    "tag": "next"
+    "tag": "latest"
   },
-  "version": "0.3.0-beta.1",
+  "version": "0.3.0",
   "description": "A custom React Hook that provides a sensible alternative to `useRef` for storing instance variables.",
   "license": "MIT",
   "main": "dist/index.js",
