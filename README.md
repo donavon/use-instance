@@ -9,9 +9,9 @@ A custom React Hook that provides a sensible alternative to `useRef` for storing
 
 `useRef` is weird. The official React docs say:
 
->`useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.
+> `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.
 
->Note that useRef() is useful for more than the ref attribute. It’s handy for keeping any mutable value around similar to how you’d use instance fields in classes.
+> Note that useRef() is useful for more than the ref attribute. It’s handy for keeping any mutable value around similar to how you’d use instance fields in classes.
 
 The fact that you have to access it via `.current` is strange.
 The fact that the React docs call out that you can use it for more than
@@ -25,8 +25,15 @@ so you're already familiar with how it works.
 So… Use `useRef` if you're dealing with actual DOM elements—use
 `useInstance` for instance properties and methods.
 
-Some may say _"Six of this, hald dozen of another,"_ and they could be right.
+Some may say _"Six of one, hald dozen of another,"_ and they could be right.
 But if you're in the "half-dozen" camp, `useInstance` might well be for you!
+
+Want more evidence that `useRef` is weird?
+In the latest [React v17 RC](https://reactjs.org/blog/2020/08/10/react-v17-rc.html#potential-issues) it says this:
+
+![image](https://user-images.githubusercontent.com/887639/90263759-191df400-de1e-11ea-84fc-8599d6c22e43.png)
+
+The solution that they are suggesting is to basically use an instance variable, which is exactly what `useInstance` is doing.
 
 ## Installation
 
@@ -56,15 +63,14 @@ const instance = useInstance(initialInstance);
 
 Here are the parameters that you can use. (\* = optional)
 
-| Parameter   | Description                                                                                                      |
-| :---------- | :--------------------------------------------------------------------------------------------------------------- |
+| Parameter         | Description                                                                                                                        |
+| :---------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
 | `initialInstance` | Is an object or a function that returns an object that represents the initial instance value. Defaults to an empty object literal. |
 
 ### Return
 
 The return value is an object that WILL NOT change on subsequent calls to your function component.
 Use it just like you would to create instance properties and methods in a class component.
-
 
 ## Examples
 
@@ -86,7 +92,7 @@ function useInterval(callback, delay) {
       savedCallback.current();
     }
     if (delay !== null) {
-      let id = setInterval(tick, delay);
+      const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
   }, [delay]);
@@ -95,25 +101,22 @@ function useInterval(callback, delay) {
 
 And here's the same code using `useInstance`.
 It has a more familiar class component-like syntax.
-Again, think of `self` as `this`.
+Again, think of `instance` as `this`.
 
 ```js
 function useInterval(callback, delay) {
-  const self = useInstance();
-  self.savedCallback = callback;
+  const instance = useInstance();
+  instance.savedCallback = callback;
 
-  useEffect(
-    () => {
-      function tick() {
-        self.savedCallback();
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
-    },
-    [delay]
-  );
+  useEffect(() => {
+    function tick() {
+      instance.savedCallback();
+    }
+    if (delay !== null) {
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
 ```
 
@@ -161,7 +164,7 @@ What is the benefit of keeping functions in instances variable
 instead of using `useCallback`?
 This is from the official Hooks documentation.
 
->In the future, React may choose to “forget” some previously memoized values and recalculate them on next render.
+> In the future, React may choose to “forget” some previously memoized values and recalculate them on next render.
 
 Instance variables never forget. 🐘
 
@@ -195,9 +198,8 @@ Notice that we moved `getInitialInstance` into a static fucntion _outside_ of `u
 This helps to reduce the complexity of `useCounter`.
 An added side effect is that `getInitialInstance` is now highly testable.
 
-
 You might even take this one step further and refactor your methods
-into it's own cusom Hook. Isn't coding fun? 😊
+into it's own custom Hook. Isn't coding fun? 😊
 
 ```js
 const getInitialInstance = setCount => ({
@@ -205,8 +207,7 @@ const getInitialInstance = setCount => ({
   decrement: () => setCount(c => c - 1),
 });
 
-const useCounterMethods = setCount => 
-  useInstance(getInitialInstance(setCount));
+const useCounterMethods = setCount => useInstance(getInitialInstance(setCount));
 
 const useCounter = initialCount => {
   const [count, setCount] = useState(initialCount);
@@ -245,6 +246,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
