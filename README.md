@@ -234,9 +234,17 @@ You can view/edit the "you clicked" sample code above on CodeSandbox.
 Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/887639?v=4" width="100px;" alt="Donavon West"/><br /><sub><b>Donavon West</b></sub>](http://donavon.com)<br />[🤔](#ideas-donavon "Ideas, Planning, & Feedback") [🚇](#infra-donavon "Infrastructure (Hosting, Build-Tools, etc)") [🚧](#maintenance-donavon "Maintenance") [👀](#review-donavon "Reviewed Pull Requests") [💻](https://github.com/donavon/use-instance/commits?author=donavon "Code") [🎨](#design-donavon "Design") |
-| :---: |
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://donavon.com"><img src="https://avatars3.githubusercontent.com/u/887639?v=4" width="100px;" alt=""/><br /><sub><b>Donavon West</b></sub></a><br /><a href="#ideas-donavon" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-donavon" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-donavon" title="Maintenance">🚧</a> <a href="https://github.com/donavon/use-instance/pulls?q=is%3Apr+reviewed-by%3Adonavon" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/donavon/use-instance/commits?author=donavon" title="Code">💻</a> <a href="#design-donavon" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/derek-rmd"><img src="https://avatars0.githubusercontent.com/u/46328094?v=4" width="100px;" alt=""/><br /><sub><b>Derek Jones</b></sub></a><br /><a href="https://github.com/donavon/use-instance/commits?author=derek-rmd" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
