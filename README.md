@@ -29,11 +29,28 @@ Some may say _"Six of one, hald dozen of another,"_ and they could be right.
 But if you're in the "half-dozen" camp, `useInstance` might well be for you!
 
 Want more evidence that `useRef` is weird?
-In the latest [React v17 RC](https://reactjs.org/blog/2020/08/10/react-v17-rc.html#potential-issues) it says this:
+In the latest [React v17 RC](https://reactjs.org/blog/2020/08/10/react-v17-rc.html#potential-issues) under "Potential Issues" it shows that this code could break.
 
-![image](https://user-images.githubusercontent.com/887639/90263759-191df400-de1e-11ea-84fc-8599d6c22e43.png)
+```js
+useEffect(() => {
+  someRef.current.someSetupMethod();
+  return () => {
+    someRef.current.someCleanupMethod();
+  };
+});
+```
 
-The solution that they are suggesting is to basically use an instance variable, which is exactly what `useInstance` is doing.
+The solution that they are suggesting (below) is to use an instance variable, which is exactly what `useInstance` is doing. Had React implimented `useInstance` this "potential issue" would never have be be raised.
+
+```js
+useEffect(() => {
+  const instance = someRef.current;
+  instance.someSetupMethod();
+  return () => {
+    instance.someCleanupMethod();
+  };
+});
+```
 
 ## Installation
 
